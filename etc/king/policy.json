@@ -1,0 +1,14 @@
+{
+  "context_is_admin": "role:admin",
+
+  "action:create": "",
+
+  "account:create": "",
+  "account:recharge": "",
+
+  "order:create": "",
+  "order:list": "",
+  "price:create": "",
+
+  "services:list": ""
+}
