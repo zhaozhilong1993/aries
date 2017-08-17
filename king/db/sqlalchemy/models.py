@@ -26,7 +26,7 @@ BASE = declarative.declarative_base()
 
 
 def get_session():
-    from heat.db.sqlalchemy import api as db_api
+    from king.db.sqlalchemy import api as db_api
     return db_api.get_session()
 
 
@@ -108,39 +108,6 @@ class Service(BASE, KingBase, SoftDelete):
                                         nullable=False)
 
 
-class Order(BASE, KingBase, SoftDelete):
-    __tablename__ = 'order'
-
-    id = sqlalchemy.Column('id',
-                           sqlalchemy.String(36),
-                           primary_key=True,
-                           default=lambda: str(uuid.uuid4()))
-    resource_id = sqlalchemy.Column('resource_id',
-                                    sqlalchemy.String(36),
-                                    nullable=False)
-    project_id = sqlalchemy.Column('project_id',
-                                   sqlalchemy.String(36),
-                                   nullable=False)
-    price_id = sqlalchemy.Column('price_id',
-                                 sqlalchemy.String(36),
-                                 nullable=False)
-    order_status = sqlalchemy.Column('order_status',
-                                     sqlalchemy.String(255),
-                                     nullable=True)
-    order_type = sqlalchemy.Column('order_type',
-                                   sqlalchemy.String(255),
-                                   nullable=True)
-    created_at = sqlalchemy.Column('created_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    updated_at = sqlalchemy.Column('updated_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    deleted_at = sqlalchemy.Column('deleted_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-
-
 class Account(BASE, KingBase, SoftDelete):
     __tablename__ = 'account'
 
@@ -148,146 +115,26 @@ class Account(BASE, KingBase, SoftDelete):
                            sqlalchemy.String(36),
                            primary_key=True,
                            default=lambda: str(uuid.uuid4()))
-    user_id = sqlalchemy.Column('user_id',
-                                sqlalchemy.String(36),
-                                nullable=False)
-    account_money = sqlalchemy.Column('account_money',
-                                      sqlalchemy.Float,
-                                      default=10.0,
-                                      nullable=True)
-    account_level = sqlalchemy.Column('account_level',
-                                      sqlalchemy.Integer,
-                                      default=3,
-                                      nullable=True)
-    account_password = sqlalchemy.Column('account_password',
-                                         sqlalchemy.String(255),
-                                         nullable=True)
-    created_at = sqlalchemy.Column('created_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    updated_at = sqlalchemy.Column('updated_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    deleted_at = sqlalchemy.Column('deleted_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-
-
-class Price(BASE, KingBase, SoftDelete):
-    __tablename__ = 'price'
-
-    id = sqlalchemy.Column('id',
-                           sqlalchemy.String(36),
-                           primary_key=True,
-                           default=lambda: str(uuid.uuid4()))
-    resource_type = sqlalchemy.Column('resource_type',
-                                      sqlalchemy.String(36),
-                                      nullable=False)
-    resource_id = sqlalchemy.Column('resource_id',
-                                    sqlalchemy.String(36),
-                                    nullable=False)
-    order_type = sqlalchemy.Column('order_type',
-                                   sqlalchemy.String(36),
-                                   nullable=True)
-    price_num = sqlalchemy.Column('price_num',
-                                  sqlalchemy.Float,
+    username = sqlalchemy.Column('username',
+                                  sqlalchemy.String(255),
                                   nullable=True)
-    created_at = sqlalchemy.Column('created_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    updated_at = sqlalchemy.Column('updated_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    deleted_at = sqlalchemy.Column('deleted_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-
-
-class Action_record(BASE, KingBase, SoftDelete):
-    __tablename__ = 'action_record'
-
-    id = sqlalchemy.Column('id',
-                           sqlalchemy.String(36),
-                           primary_key=True,
-                           default=lambda: str(uuid.uuid4()))
-    resource_id = sqlalchemy.Column('resource_id',
-                                    sqlalchemy.String(36),
-                                    nullable=False)
-    user_id = sqlalchemy.Column('user_id',
-                                sqlalchemy.String(36),
-                                nullable=False)
-    project_id = sqlalchemy.Column('project_id',
-                                   sqlalchemy.String(36),
-                                   nullable=False)
-    created_at = sqlalchemy.Column('created_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    updated_at = sqlalchemy.Column('updated_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    deleted_at = sqlalchemy.Column('deleted_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    resource_type = sqlalchemy.Column('resource_type',
+    user_password = sqlalchemy.Column('user_password',
                                       sqlalchemy.String(255),
                                       nullable=True)
-    action = sqlalchemy.Column('action',
-                               sqlalchemy.String(255),
-                               nullable=True)
-
-
-class Pay_record(BASE, KingBase, SoftDelete):
-    __tablename__ = 'pay_record'
-
-    id = sqlalchemy.Column('id',
-                           sqlalchemy.String(36),
-                           primary_key=True,
-                           default=lambda: str(uuid.uuid4()))
-    order_id = sqlalchemy.Column('order_id',
-                                 sqlalchemy.String(36),
-                                 nullable=False)
     user_id = sqlalchemy.Column('user_id',
-                                sqlalchemy.String(36),
-                                nullable=False)
+                                sqlalchemy.String(255),
+                                nullable=True)
     project_id = sqlalchemy.Column('project_id',
-                                   sqlalchemy.String(36),
-                                   nullable=False)
-    pay_action = sqlalchemy.Column('pay_action',
                                    sqlalchemy.String(255),
                                    nullable=True)
-    pay = sqlalchemy.Column('pay',
-                            sqlalchemy.Float,
-                            nullable=True)
-    created_at = sqlalchemy.Column('created_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    updated_at = sqlalchemy.Column('updated_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-    deleted_at = sqlalchemy.Column('deleted_at',
-                                   sqlalchemy.DateTime,
-                                   nullable=True)
-
-
-class Recharge_record(BASE, KingBase, SoftDelete):
-    __tablename__ = 'recharge_record'
-
-    id = sqlalchemy.Column('id',
-                           sqlalchemy.String(36),
-                           primary_key=True,
-                           default=lambda: str(uuid.uuid4()))
-    account_id = sqlalchemy.Column('account_id',
+    cloud_type = sqlalchemy.Column('cloud_type',
                                    sqlalchemy.String(36),
-                                   nullable=False)
-    recharge_method = sqlalchemy.Column('recharge_method',
-                                        sqlalchemy.String(255),
-                                        nullable=False)
-    recharge_commend = sqlalchemy.Column('recharge_commend',
-                                         sqlalchemy.String(255),
-                                         nullable=True)
-    recharge = sqlalchemy.Column('recharge',
-                                 sqlalchemy.Float,
-                                 nullable=True)
+                                   default='OpenStack',
+                                   nullable=True)
+    private = sqlalchemy.Column('private',
+                                sqlalchemy.Boolean,
+                                default=True,
+                                nullable=True)
     created_at = sqlalchemy.Column('created_at',
                                    sqlalchemy.DateTime,
                                    nullable=True)
@@ -297,18 +144,3 @@ class Recharge_record(BASE, KingBase, SoftDelete):
     deleted_at = sqlalchemy.Column('deleted_at',
                                    sqlalchemy.DateTime,
                                    nullable=True)
-
-
-class Crontab(BASE, KingBase, SoftDelete):
-    __tablename__ = 'Crontab'
-
-    id = sqlalchemy.Column('id',
-                           sqlalchemy.String(36),
-                           primary_key=True,
-                           default=lambda: str(uuid.uuid4()))
-    order_id = sqlalchemy.Column('order_id',
-                                 sqlalchemy.String(36),
-                                 nullable=False)
-    cron_at = sqlalchemy.Column('cron_at',
-                                sqlalchemy.DateTime,
-                                nullable=True)

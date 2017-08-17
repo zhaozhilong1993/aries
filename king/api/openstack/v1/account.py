@@ -23,7 +23,6 @@ from king.common import serializers
 from king.common import service_utils
 from king.common import wsgi
 
-from king.objects.account import Account as account_object
 from oslo_log import log as logging
 
 
@@ -43,61 +42,14 @@ class AccountController(object):
 
     @util.policy_enforce
     def create(self, req, body):
-        body_str = req.body
-        try:
-            body = json.loads(body_str)
-        except ValueError as ex:
-            msg = _("Post data error: %s") % ex
-            raise exc.HTTPBadRequest(six.text_type(msg))
-        if 'account' in body:
-            try:
-                if body['account']['user_id'] is None:
-                    msg = _("Post data error: user_id can not be null")
-                    raise exc.HTTPBadRequest(six.text_type(msg))
-            except KeyError as ex:
-                msg = _("Post data error: some key not be found")
-                raise exc.HTTPBadRequest(six.text_type(msg))
-            # create keystone account mapping
-            res = service_utils.to_dict(account_object.create(req.context,
-                                                              body['account']))
-            return res
-        else:
-            msg = _("Post data error: key account not found")
+        pass
 
     @util.policy_enforce
     def list(self, req, body):
         pass
 
     @util.policy_enforce
-    def recharge(self, req, body):
-        body_str = req.body
-        try:
-            body = json.loads(body_str)
-        except ValueError as ex:
-            msg = _("Post data error: %s") % ex
-            raise exc.HTTPBadRequest(six.text_type(msg))
-        if 'account' in body:
-            try:
-                value = body['account']
-                if value['recharge'] is None:
-                    msg = _("Post data error: recharge_num can not be null")
-                    raise exc.HTTPBadRequest(six.text_type(msg))
-                value["recharge"] = float(value['recharge'])
-            except KeyError as ex:
-                msg = _("Post data error: some key not be found")
-                raise exc.HTTPBadRequest(six.text_type(msg))
-            res = service_utils.to_dict(account_object.recharge(req.context,
-                                                                value))
-            return res
-        else:
-            msg = _("Post data error: key account not found")
-
-    @util.policy_enforce
-    def update_level(self, req, body):
-        pass
-
-    @util.policy_enforce
-    def update_password(self, req, body):
+    def update(self, req, body):
         pass
 
 

@@ -16,9 +16,6 @@ import six
 
 from king.common import wsgi
 from king.api.openstack.v1 import account
-from king.api.openstack.v1 import action
-from king.api.openstack.v1 import order
-from king.api.openstack.v1 import price
 from king.api.openstack.v1 import services
 
 
@@ -98,38 +95,6 @@ class API(wsgi.Router):
                     }
                 ])
 
-        # order
-        orders_resource = order.create_resource(conf)
-        connect(controller=orders_resource,
-                # path_prefix='/{tenant_id}',
-                path_prefix='',
-                routes=[
-                    {
-                        'name': 'order_list',
-                        'url': '/order',
-                        'action': 'list',
-                        'method': 'GET'
-                    },
-                    {
-                        'name': 'order_create',
-                        'url': '/order',
-                        'action': 'create',
-                        'method': 'POST'
-                    },
-                    {
-                        'name': 'order_show',
-                        'url': '/order/{order_name}',
-                        'action': 'show',
-                        'method': 'GET'
-                    },
-                    {
-                        'name': 'order_status_update',
-                        'url': '/order/{order_name}',
-                        'action': 'update_status',
-                        'method': 'POST'
-                    }
-                ])
-
         # account
         account_resource = account.create_resource(conf)
         connect(controller=account_resource,
@@ -149,62 +114,11 @@ class API(wsgi.Router):
                         'method': 'GET'
                     },
                     {
-                        'name': 'recharge_account',
-                        'url': '/account/recharge',
-                        'action': 'recharge',
+                        'name': 'update_account',
+                        'url': '/account/{account_name}',
+                        'action': 'update',
                         'method': 'POST'
                     },
-                    {
-                        'name': 'update_account_level',
-                        'url': '/account/{account_name}/level',
-                        'action': 'update_level',
-                        'method': 'POST'
-                    },
-                    {
-                        'name': 'update_account_password',
-                        'url': '/account/{account_name}/password',
-                        'action': 'update_password',
-                        'method': 'POST'
-                    },
-                ])
-
-        # price
-        prices_resource = price.create_resource(conf)
-        connect(controller=prices_resource,
-                path_prefix='',
-                routes=[
-                    {
-                        'name': 'price_list',
-                        'url': '/price',
-                        'action': 'list',
-                        'method': 'GET'
-                    },
-                    {
-                        'name': 'priec_create',
-                        'url': '/price',
-                        'action': 'create',
-                        'method': 'POST'
-                    },
-                    {
-                        'name': 'price_update',
-                        'url': '/price/{price_name}',
-                        'action': 'update_price',
-                        'method': 'POST'
-                    }
-                ])
-
-        # action
-        action_resource = action.create_resource(conf)
-        connect(controller=action_resource,
-                # path_prefix='/{tenant_id}',
-                path_prefix='',
-                routes=[
-                    {
-                        'name': 'create_action',
-                        'url': '/action',
-                        'action': 'create',
-                        'method': 'POST'
-                    }
                 ])
 
         # now that all the routes are defined, add a handler for

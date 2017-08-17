@@ -22,11 +22,7 @@ import uuid
 from apscheduler.schedulers import background
 from king.common import context
 from king.rpc import api as rpc_api
-from king.rpc import account_client as account_rpc_client
 from king.objects import services as services_object
-from king.objects import account as account_object
-from king.objects import order as order_object
-from king.objects import price as price_object
 
 from king.clients.os import cinder
 from king.clients.os import nova

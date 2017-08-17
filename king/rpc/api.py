@@ -13,8 +13,6 @@
 
 # use by inside model rpc call
 SERVER_TOPIC = 'king-server'
-ACCOUNT_TOPIC = 'king-account'
 
 # use by other openstack part call
 SERVER_LISTENER_TOPIC = 'king-server-listener'
-ACCOUNT_LISTENER_TOPIC = 'king-account-listener'
